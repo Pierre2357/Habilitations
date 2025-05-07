@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Habilitations2024
+namespace Habilitations2024.vue
 {
     internal static class Program
     {
@@ -16,7 +16,7 @@ namespace Habilitations2024
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FrmHabilitations());
         }
     }
 }
