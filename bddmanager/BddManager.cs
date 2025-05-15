@@ -48,9 +48,9 @@ namespace Habilitations2024.bddmanager
         }
 
         /// <summary>
-        /// Execution d'une requète autre que "SELECT"
+        /// Execution d'une requête autre que "SELECT"
         /// </summary>
-        /// <param name="StringQuery">Requete SQL à executer autre que "SELECT"</param>
+        /// <param name="StringQuery">Requête SQL à executer autre que "SELECT"</param>
         /// <param name="parameters">dictionnaire contenant les paramètres</param>
         public void ReqUpdate(string StringQuery, Dictionary<string, object> parameters = null)
         {
@@ -64,6 +64,36 @@ namespace Habilitations2024.bddmanager
             }
             commande.Prepare();
             commande.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Execution d'une requête "SELECT"
+        /// </summary>
+        /// <param name="StringQuery">Requête "SELECT"</param>
+        /// <param name="parameters">Dictionnaire contenant les paramètres</param>
+        /// <returns>Valeurs demandées</returns>
+        public List<Object[]> ReqSelect(string StringQuery, Dictionary<string, object> parameters = null)
+        {
+            MySqlCommand commande = new MySqlCommand(StringQuery, connexion);
+            if (!(parameters is null))
+            {
+                foreach (KeyValuePair<string, object> parameter in parameters)
+                {
+                    commande.Parameters.Add(new MySqlParameter(parameter.Key, parameter.Value));
+                }
+            }
+            commande.Prepare();
+            MySqlDataReader reader = commande.ExecuteReader();
+            int nbCols = reader.FieldCount;
+            List<Object[]> records = new List<object[]>();
+            while (reader.Read())
+            {
+                Object[] attributs = new object[nbCols];
+                reader.GetValues(attributs);
+                records.Add(attributs);
+            }
+            reader.Close();
+            return records;
         }
     }
 }
