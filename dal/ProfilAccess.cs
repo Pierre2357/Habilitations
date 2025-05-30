@@ -50,6 +50,5 @@ namespace Habilitations2024.dal
             }
             return lesProfils;
         }
-
     }
 }

@@ -28,6 +28,10 @@ namespace Habilitations2024.vue
         /// </summary>
         private BindingSource bdgProfils = new BindingSource();
         /// <summary>
+        /// Objet pour gérer la liste des profils
+        /// </summary>
+        private BindingSource bdgFiltres = new BindingSource();
+        /// <summary>
         /// Controleur de la fenêtre
         /// </summary>
         private FrmHabilitationsController controller;
@@ -49,6 +53,7 @@ namespace Habilitations2024.vue
             controller = new FrmHabilitationsController();
             RemplirListeDeveloppeurs();
             RemplirListeProfils();
+            RemplirListeFiltres();
             EnCoursDeModifDeveloppeur(false);
             EnCoursDeModifPwd(false);
         }
@@ -58,7 +63,7 @@ namespace Habilitations2024.vue
         /// </summary>
         private void RemplirListeDeveloppeurs()
         {
-            List<Developpeur> lesDeveloppeurs = controller.GetLesDeveloppeurs();
+            List<Developpeur> lesDeveloppeurs = controller.GetLesDeveloppeurs(cboFiltres.Text);
             bdgDeveloppeurs.DataSource = lesDeveloppeurs;
             dgvDeveloppeur.DataSource = bdgDeveloppeurs;
             dgvDeveloppeur.Columns["iddeveloppeur"].Visible = false;
@@ -229,9 +234,40 @@ namespace Habilitations2024.vue
             }
         }
 
+        /// <summary>
+        /// Demande d'annulation de la modification du mot de passe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAnnulPwd_Click(object sender, EventArgs e)
         {
             EnCoursDeModifPwd(false);
+        }
+
+        /// <summary>
+        /// Affiche les profils
+        /// </summary>
+        private void RemplirListeFiltres()
+        {
+            List<Profil> lesFiltres = new List<Profil>();
+            lesFiltres.Add(new Profil(0, ""));
+            List<Profil> lesProfils = controller.GetLesProfils();
+            for(int i = 0; i < lesProfils.Count; i++)
+            {
+                lesFiltres.Add(lesProfils[i]);
+            }
+            bdgFiltres.DataSource = lesFiltres;
+            cboFiltres.DataSource = bdgFiltres;
+        }
+
+        private void cboFiltres_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RemplirListeDeveloppeurs();
+        }
+
+        public DataGridView getDgvDeveloppeurs()
+        {
+            return this.dgvDeveloppeur;
         }
     }
 }

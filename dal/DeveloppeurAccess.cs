@@ -23,8 +23,9 @@ namespace Habilitations2024.dal
         /// <summary>
         /// Récupère et retourne les développeurs
         /// </summary>
+        /// <param name="filtre">Filtre à appliquer</param>
         /// <returns>Liste des développeurs</returns>
-        public List<Developpeur> GetLesDeveloppeurs()
+        public List<Developpeur> GetLesDeveloppeurs(string filtre)
         {
             List<Developpeur> lesDeveloppeurs = new List<Developpeur>();
             if (access.Manager != null)
@@ -39,10 +40,23 @@ namespace Habilitations2024.dal
                     {
                         foreach (Object[] record in records)
                         {
-                            Profil profil = new Profil((int)record[5], (string)record[6]);
-                            Developpeur developpeur = new Developpeur((int)record[0], (string)record[1], (string)record[2],
-                                (string)record[3], (string)record[4], profil);
-                            lesDeveloppeurs.Add(developpeur);
+                            if (filtre == "")
+                            {
+                                Profil profil = new Profil((int)record[5], (string)record[6]);
+                                Developpeur developpeur = new Developpeur((int)record[0], (string)record[1], (string)record[2],
+                                    (string)record[3], (string)record[4], profil);
+                                lesDeveloppeurs.Add(developpeur);
+                            }
+                            else
+                            {
+                                Profil profil = new Profil((int)record[5], (string)record[6]);
+                                if (filtre == profil.Nom)
+                                {
+                                    Developpeur developpeur = new Developpeur((int)record[0], (string)record[1], (string)record[2],
+                                        (string)record[3], (string)record[4], profil);
+                                    lesDeveloppeurs.Add(developpeur);
+                                }
+                            }
                         }
                     }
                 }

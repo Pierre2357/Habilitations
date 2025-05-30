@@ -27,10 +27,11 @@ namespace Habilitations2024.controlleur
         /// <summary>
         /// Récupère et retourne la liste des développeurs
         /// </summary>
+        /// <param name="filtre">Filtre à appliquer</param>
         /// <returns>Liste des développeurs</returns>
-        public List<Developpeur> GetLesDeveloppeurs()
+        public List<Developpeur> GetLesDeveloppeurs(string filtre)
         {
-            return developpeurAccess.GetLesDeveloppeurs();
+            return developpeurAccess.GetLesDeveloppeurs(filtre);
         }
 
         /// <summary>

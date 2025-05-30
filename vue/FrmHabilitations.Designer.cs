@@ -30,6 +30,7 @@
         {
             this.dgvDeveloppeur = new System.Windows.Forms.DataGridView();
             this.grbLesDeveloppeurs = new System.Windows.Forms.GroupBox();
+            this.cboFiltres = new System.Windows.Forms.ComboBox();
             this.btnDemandeChangePwd = new System.Windows.Forms.Button();
             this.btnDemandeSupprdev = new System.Windows.Forms.Button();
             this.btnDemandeModifDev = new System.Windows.Forms.Button();
@@ -73,6 +74,7 @@
             // 
             // grbLesDeveloppeurs
             // 
+            this.grbLesDeveloppeurs.Controls.Add(this.cboFiltres);
             this.grbLesDeveloppeurs.Controls.Add(this.btnDemandeChangePwd);
             this.grbLesDeveloppeurs.Controls.Add(this.btnDemandeSupprdev);
             this.grbLesDeveloppeurs.Controls.Add(this.btnDemandeModifDev);
@@ -83,6 +85,15 @@
             this.grbLesDeveloppeurs.TabIndex = 1;
             this.grbLesDeveloppeurs.TabStop = false;
             this.grbLesDeveloppeurs.Text = "les développeurs";
+            // 
+            // cboFiltres
+            // 
+            this.cboFiltres.FormattingEnabled = true;
+            this.cboFiltres.Location = new System.Drawing.Point(521, 262);
+            this.cboFiltres.Name = "cboFiltres";
+            this.cboFiltres.Size = new System.Drawing.Size(114, 21);
+            this.cboFiltres.TabIndex = 4;
+            this.cboFiltres.SelectedIndexChanged += new System.EventHandler(this.cboFiltres_SelectedIndexChanged);
             // 
             // btnDemandeChangePwd
             // 
@@ -352,6 +363,7 @@
         private System.Windows.Forms.TextBox txtPwd2;
         private System.Windows.Forms.TextBox txtPwd1;
         private System.Windows.Forms.ComboBox cboProfil;
+        private System.Windows.Forms.ComboBox cboFiltres;
     }
 }
 
